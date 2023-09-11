@@ -3,7 +3,7 @@ import { MainPage, AccountantsPage } from './pages';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App: FC = () => (
-  <Router>
+  <Router basename={'/infakt'}>
     <Routes>
       <Route path={'/'} element={<MainPage />} />
       <Route path={'/ksiegowi'} element={<AccountantsPage />} />
