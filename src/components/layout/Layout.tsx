@@ -7,7 +7,7 @@ const LayoutWrapper: FC<PropsWithChildren> = styled.div`
     margin: 0 auto;
     padding: 0 4px;
     @media (max-width: 1300px) {
-        padding: 0 24px;
+        padding: 0 24px 24px;
     }
 `
 
