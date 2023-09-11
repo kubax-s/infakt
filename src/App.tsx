@@ -1,21 +1,14 @@
 import { FC } from 'react';
 import { MainPage, AccountantsPage } from './pages';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainPage />,
-  },
-    {
-    path: "/ksiegowi",
-    element: <AccountantsPage />,
-  },
-]);
-
-const App: FC = () => <RouterProvider router={router} /> 
+const App: FC = () => (
+  <Router basename={'/infakt'}>
+    <Routes>
+      <Route path={'/'} element={<MainPage />} />
+      <Route path={'/ksiegowi'} element={<AccountantsPage />} />
+    </Routes>
+  </Router>
+)
 
 export default App;
