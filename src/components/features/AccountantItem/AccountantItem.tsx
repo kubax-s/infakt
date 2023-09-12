@@ -11,7 +11,7 @@ const AccountantItem: FC<AccountantItemProps> = ({ data })  => {
     return (
         <Card>
             <FlexWrapper $align="center">
-                <Avatar src={data.picture.thumbnail} />
+                <Avatar $smSrc={data.picture.thumbnail} $mdSrc={data.picture.medium} />
                 <FlexWrapper $direction="column" $justify="center">
                     <Typography $color="#54585C">{ data.gender === 'female' ? 'Twoja księgowa' : 'Twój księgowy' }</Typography>
                     <Typography $fontSize="24px" $fontWeight="700">{ `${data.name.first} ${data.name.last}` }</Typography>

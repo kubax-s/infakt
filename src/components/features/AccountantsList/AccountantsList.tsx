@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { AccountantType, AccountantResponseType } from 'src/type/accountant.type';
 import { getAccountants } from 'src/api';
 import { AccountantItem } from 'src/components/features';
-import { Button, FlexWrapper, Typography } from 'src/components/ui';
+import { Button, FlexWrapper, Loading, Typography } from 'src/components/ui';
 
 const AccountantsListWrapper: FC<PropsWithChildren> = styled.div`
     display: grid;
@@ -21,12 +21,15 @@ const AccountantsListWrapper: FC<PropsWithChildren> = styled.div`
 const AccountantsList: FC = () => {
     const [items, setItems] = useState<AccountantType[] | null>(null)
     const [page, setPage] = useState<number>(1)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const handleGetAccountants = async (page = 1) => {
+        setLoading(true);
         const res = await getAccountants(page);
         const data: AccountantResponseType = await res.json();
-        setItems(data.results)
-        setPage(data.info.page)
+        setItems(data.results);
+        setPage(data.info.page);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -36,13 +39,13 @@ const AccountantsList: FC = () => {
     return (
         <>
             <AccountantsListWrapper>
-                {items && items.map((item) => <AccountantItem data={item} key={item.login.uuid} />)}
-                {!items && <div>Loading...</div>}
+                { items && items.map((item) => <AccountantItem data={item} key={item.login.uuid} />) }
             </AccountantsListWrapper>
             <FlexWrapper $justify="flex-end" $align="center" $gap="24px">
-                <Button onClick={() => {page > 1 && handleGetAccountants(page - 1)}}>{'<'}</Button>
+                { loading && <Loading /> }
+                <Button onClick={ () => {page > 1 && handleGetAccountants(page - 1)} }>{'<'}</Button>
                 <Typography>{page}</Typography>
-                <Button onClick={() => handleGetAccountants(page + 1)}>{'>'}</Button>
+                <Button onClick={ () => handleGetAccountants(page + 1) }>{'>'}</Button>
             </FlexWrapper>
         </>
     )
